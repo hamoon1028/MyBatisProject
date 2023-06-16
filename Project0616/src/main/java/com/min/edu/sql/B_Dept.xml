@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.DeptImpl">
+
+	<select id="getDept" parameterType="java.util.Map" resultType="DeptDTO">
+		SELECT EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_ID, DEPARTMENT_NAME
+			FROM DEPT  JOIN EMP 
+			USING(DEPARTMENT_ID)
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateDept" parameterType="DeptDTO">
+		UPDATE JOB SET JOB_ID = #{job_id}
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</update>
+
+</mapper>

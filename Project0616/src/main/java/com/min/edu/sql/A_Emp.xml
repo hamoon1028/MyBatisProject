@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.EmpImpl">
+	
+	<sql id="selectAll">
+		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, MANAGER_ID, JOB_ID, DEPARTMENT_ID
+			FROM EMP
+	</sql>
+	
+	<insert id="insertEmp" parameterType="EmpDTO">
+		<selectKey keyProperty="employee_id" resultType="java.lang.Integer" order="BEFORE">
+			SELECT MAX(EMPLOYEE_ID)+1 FROM EMP
+		</selectKey>
+		INSERT INTO EMP (EMPLOYEE_ID, FIRST_NAME, LAST_NAME)
+			VALUES(#{employee_id}, #{first_name}, #{last_name})
+	</insert>	
+	
+	<select id="selectOneEmp" parameterType="EmpDTO" resultType="EmpDTO">
+			SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME
+			FROM EMP
+			WHERE EMPLOYEE_ID = #{employee_id}
+	</select>
+	
+	<select id="getEmpIf" parameterType="java.util.Map" resultType="EmpDTO">
+		<include refid="selectAll"/>
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteEmp" parameterType="EmpDTO">
+		DELETE FROM EMP
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateEmp" parameterType="EmpDTO">
+		UPDATE EMP SET SALARY = #{salary}
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</update>
+
+	<select id="getDept_avgSal" parameterType="java.util.Map" resultType="EmpDTO">
+		SELECT EMPLOYEE_ID, e.JOB_ID, SALARY, 평균급여
+ 			FROM EMP e, (SELECT JOB_ID, AVG(SALARY) 평균급여
+				 			FROM EMP e 
+				 			GROUP BY JOB_ID) e2
+			WHERE e.JOB_ID = e2.JOB_ID
+			AND EMPLOYEE_ID = #{employee_id}
+	</select>
+
+</mapper>
