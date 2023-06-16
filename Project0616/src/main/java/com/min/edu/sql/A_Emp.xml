@@ -3,7 +3,7 @@
 <mapper namespace="com.min.edu.model.EmpImpl">
 	
 	<sql id="selectAll">
-		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, MANAGER_ID, JOB_ID, DEPARTMENT_ID
+		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, hire_date, JOB_ID, SALARY, MANAGER_ID, DEPARTMENT_ID
 			FROM EMP
 	</sql>
 	
@@ -11,8 +11,8 @@
 		<selectKey keyProperty="employee_id" resultType="java.lang.Integer" order="BEFORE">
 			SELECT MAX(EMPLOYEE_ID)+1 FROM EMP
 		</selectKey>
-		INSERT INTO EMP (EMPLOYEE_ID, FIRST_NAME, LAST_NAME)
-			VALUES(#{employee_id}, #{first_name}, #{last_name})
+		INSERT INTO EMP (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, hire_date, JOB_ID, SALARY, MANAGER_ID, DEPARTMENT_ID)
+			VALUES(#{employee_id}, #{first_name}, #{last_name}, SYSDATE, #{job_id}, #{salary}, #{manager_id}, #{department_id})
 	</insert>	
 	
 	<select id="selectOneEmp" parameterType="EmpDTO" resultType="EmpDTO">

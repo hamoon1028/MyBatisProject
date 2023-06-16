@@ -23,10 +23,4 @@ public class DeptImpl implements IDept {
 		return lists;
 	}
 	
-	@Override
-	public int updateDept(Dept_DTO dto) {
-		SqlSession session = manager.openSession(true);
-		int n = session.update(NS+"updateDept", dto);
-		return n;
-	}
 }

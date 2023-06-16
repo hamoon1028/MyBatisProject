@@ -21,5 +21,14 @@
 			</if>
 		</where>
 	</update>
+	
+	<update id="updateEmpJobId" parameterType="DeptDTO">
+		UPDATE EMP SET JOB_ID = #{job_id}
+		<where>
+			<if test="employee_id != null">
+				EMPLOYEE_ID = #{employee_id}
+			</if>
+		</where>
+	</update>
 
 </mapper>

@@ -9,5 +9,5 @@ public interface IDept {
 		
 	public List<Dept_DTO> getDept(Map<String , Object> map);
 	
-	public int updateDept(Dept_DTO dto);
+
 }

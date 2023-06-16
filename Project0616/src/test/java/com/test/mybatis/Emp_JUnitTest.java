@@ -19,7 +19,7 @@ public class Emp_JUnitTest {
 //	@Test
 	public void insertEmp() {
 		EmpServiceImpl service = new EmpServiceImpl();
-		Emp_DTO iDto = new Emp_DTO(0, "heeae", "moon", null, 0, 0, 0);
+		Emp_DTO iDto = new Emp_DTO(0, "heeae", "moon", null, null, 0, 0, 0);
 		Emp_DTO rDto = service.insertAfterSelect(iDto);
 		System.out.println("입력된 객체 확인 : "+ rDto);
 		assertNotNull(rDto);
@@ -42,7 +42,7 @@ public class Emp_JUnitTest {
 		assertEquals(1, result);
 	}
 	
-	@Test
+//	@Test
 	public void updateEmp() {
 		int sal = 5000;
 		int employee_id = 206;
@@ -53,7 +53,7 @@ public class Emp_JUnitTest {
 		assertEquals(1, result);
 	}
 	
-//	@Test
+	@Test
 	public void getDept_avgSal() {
 		Map<String , Object> map = new HashMap<String, Object>();
 		map.put("employee_id", 103);
